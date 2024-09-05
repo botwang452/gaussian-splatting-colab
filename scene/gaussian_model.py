@@ -255,6 +255,9 @@ class GaussianModel:
 
         self.active_sh_degree = self.max_sh_degree
 
+        # max_radii_2d undefined causes device to be cpu?
+        self.max_radii2D = torch.zeros((self.get_xyz.shape[0]), device="cuda")
+
     def replace_tensor_to_optimizer(self, tensor, name):
         optimizable_tensors = {}
         for group in self.optimizer.param_groups:
@@ -302,7 +305,7 @@ class GaussianModel:
         self.xyz_gradient_accum = self.xyz_gradient_accum[valid_points_mask]
 
         self.denom = self.denom[valid_points_mask]
-        self.max_radii2D = self.max_radii2D[valid_points_mask].cuda()
+        self.max_radii2D = self.max_radii2D[valid_points_mask]
 
     def cat_tensors_to_optimizer(self, tensors_dict):
         optimizable_tensors = {}

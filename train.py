@@ -27,7 +27,6 @@ try:
 except ImportError:
     TENSORBOARD_FOUND = False
 
-device='cuda'
 def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoint_iterations, checkpoint, debug_from):
     first_iter = 0
     tb_writer = prepare_output_and_logger(dataset)
@@ -112,7 +111,6 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Densification
             if iteration < opt.densify_until_iter:
                 # Keep track of max radii in image-space for pruning
-                gaussians.max_radii2D.to(device)
                 print(gaussians.max_radii2D.device)
                 print(gaussians.max_radii2D)
                 gaussians.max_radii2D[visibility_filter] = torch.max(gaussians.max_radii2D[visibility_filter], radii[visibility_filter])
