@@ -302,7 +302,7 @@ class GaussianModel:
         self.xyz_gradient_accum = self.xyz_gradient_accum[valid_points_mask]
 
         self.denom = self.denom[valid_points_mask]
-        self.max_radii2D = self.max_radii2D[valid_points_mask]
+        self.max_radii2D = self.max_radii2D[valid_points_mask].cuda()
 
     def cat_tensors_to_optimizer(self, tensors_dict):
         optimizable_tensors = {}
