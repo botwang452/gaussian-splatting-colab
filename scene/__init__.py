@@ -36,6 +36,7 @@ class Scene:
             else:
                 self.loaded_iter = load_iteration
             print("Loading trained model at iteration {}".format(self.loaded_iter))
+        self.loaded_iter = 0
 
         self.train_cameras = {}
         self.test_cameras = {}
