@@ -76,10 +76,11 @@ class Scene:
         print(self.loaded_iter)
         if self.loaded_iter:
             print('loading gaussians')
-            self.gaussians.load_ply(os.path.join(self.model_path,
-                                                           "point_cloud",
-                                                           "iteration_" + str(self.loaded_iter),
-                                                           "point_cloud.ply"))
+            #self.gaussians.load_ply(os.path.join(self.model_path,
+            #                                               "point_cloud",
+            #                                               "iteration_" + str(self.loaded_iter),
+            #                                               "point_cloud.ply"))
+            self.gaussians.load_ply('/sparse/0/initialisation.ply')
         else:
             self.gaussians.create_from_pcd(scene_info.point_cloud, self.cameras_extent)
 
