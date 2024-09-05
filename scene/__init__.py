@@ -59,7 +59,7 @@ class Scene:
                 camlist.extend(scene_info.train_cameras)
             for id, cam in enumerate(camlist):
                 json_cams.append(camera_to_JSON(id, cam))
-            with open(os.path.join(args._source_path, "cameras.json"), 'w') as file:
+            with open(os.path.join(self.model_path, "cameras.json"), 'w') as file:
                 json.dump(json_cams, file)
 
         if shuffle:
@@ -80,7 +80,7 @@ class Scene:
             #                                               "point_cloud",
             #                                               "iteration_" + str(self.loaded_iter),
             #                                               "point_cloud.ply"))
-            self.gaussians.load_ply(os.path.join(self.model_path, "sparse/0", "initialisation.ply"))
+            self.gaussians.load_ply(os.path.join(args._source_path, "sparse/0", "initialisation.ply"))
         else:
             self.gaussians.create_from_pcd(scene_info.point_cloud, self.cameras_extent)
 
