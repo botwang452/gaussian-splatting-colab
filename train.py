@@ -142,7 +142,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     plt.ylabel('Loss')
     plt.grid(True)
     plt.savefig(os.path.join(plot_path, "loss_plot.png"))
-
+    plt.show()
 
 def prepare_output_and_logger(args):    
     if not args.model_path:
