@@ -31,7 +31,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     first_iter = 0
     tb_writer = prepare_output_and_logger(dataset)
     gaussians = GaussianModel(dataset.sh_degree)
-    scene = Scene(dataset, gaussians, load_iteration=1)
+    scene = Scene(dataset, gaussians, load_iteration=None)
     gaussians.training_setup(opt)
     if checkpoint:
         (model_params, first_iter) = torch.load(checkpoint)
@@ -214,7 +214,7 @@ if __name__ == "__main__":
     parser.add_argument('--debug_from', type=int, default=-1)
     parser.add_argument('--detect_anomaly', action='store_true', default=False)
     parser.add_argument("--test_iterations", nargs="+", type=int, default=[29_000, 30_000])
-    parser.add_argument("--save_iterations", nargs="+", type=int, default=[100, 7000, 10000, 12000, 15000, 20000, 29_000, 30_000])
+    parser.add_argument("--save_iterations", nargs="+", type=int, default=[100, 10000, 10500, 11000, 11500, 12000, 30_000])
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--checkpoint_iterations", nargs="+", type=int, default=[])
     parser.add_argument("--start_checkpoint", type=str, default = None)
