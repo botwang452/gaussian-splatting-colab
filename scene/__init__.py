@@ -79,7 +79,7 @@ class Scene:
             #                                               "point_cloud",
             #                                               "iteration_" + str(self.loaded_iter),
             #                                               "point_cloud.ply"))
-            load_path = os.path.join(args.source_path, "sparse/0", "checkpoint.ply")
+            load_path = os.path.join(args.source_path, "sparse/0", "initialisation.ply")
             print(f'loading gaussians: {load_path}')
             self.gaussians.load_ply(load_path)
         else:
