@@ -94,7 +94,8 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
         gt_image = viewpoint_cam.original_image.cuda()
         Ll1 = l1_loss(image, gt_image)
         loss = (1.0 - opt.lambda_dssim) * Ll1 + opt.lambda_dssim * (1.0 - ssim(image, gt_image))
-        train_losses.append(loss.item())
+        if iteration % 100 == 0:
+            train_losses.append(loss.item())
         loss.backward()
 
         iter_end.record()
@@ -237,8 +238,8 @@ if __name__ == "__main__":
     parser.add_argument('--port', type=int, default=6009)
     parser.add_argument('--debug_from', type=int, default=-1)
     parser.add_argument('--detect_anomaly', action='store_true', default=False)
-    parser.add_argument("--test_iterations", nargs="+", type=int, default=[7000])#default=[7000, 30_000])
-    parser.add_argument("--save_iterations", nargs="+", type=int, default=[7000])#default=[7000, 30_000])
+    parser.add_argument("--test_iterations", nargs="+", type=int, default=[30000])#default=[7000, 30_000])
+    parser.add_argument("--save_iterations", nargs="+", type=int, default=[30000])#default=[7000, 30_000])
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--checkpoint_iterations", nargs="+", type=int, default=[])
     parser.add_argument("--start_checkpoint", type=str, default = None)
