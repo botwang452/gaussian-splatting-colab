@@ -134,7 +134,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 print("\n[ITER {}] Saving Checkpoint".format(iteration))
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
 
-    # render final images
+    # r ender final images
     with torch.no_grad:
         for i, viewpoint_cam in enumerate(viewpoint_stack):
             bg = torch.rand((3), device="cuda") if opt.random_background else background
