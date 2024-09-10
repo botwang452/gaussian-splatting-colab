@@ -146,9 +146,9 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Save as a PNG image
             print(gt_image.shape)
             print(image.shape)
-            image1 = Image.fromarray(image.cpu().detach().numpy())
+            image1 = Image.fromarray(image.permute((1, 2, 0)).cpu().detach().numpy())
             image1.save(f'renders/render_{i}.png')
-            image2 = Image.fromarray(image.cpu().detach().numpy())
+            image2 = Image.fromarray(image.permute((1, 2, 0)).cpu().detach().numpy())
             image2.save(f'gts/gt_{i}.png')
 
     # save train loss plot
@@ -231,8 +231,8 @@ if __name__ == "__main__":
     parser.add_argument('--port', type=int, default=6009)
     parser.add_argument('--debug_from', type=int, default=-1)
     parser.add_argument('--detect_anomaly', action='store_true', default=False)
-    parser.add_argument("--test_iterations", nargs="+", type=int, default=[100])#default=[7000, 30_000])
-    parser.add_argument("--save_iterations", nargs="+", type=int, default=[100])#default=[7000, 30_000])
+    parser.add_argument("--test_iterations", nargs="+", type=int, default=[10000])#default=[7000, 30_000])
+    parser.add_argument("--save_iterations", nargs="+", type=int, default=[10000])#default=[7000, 30_000])
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--checkpoint_iterations", nargs="+", type=int, default=[])
     parser.add_argument("--start_checkpoint", type=str, default = None)
