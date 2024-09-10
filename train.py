@@ -150,10 +150,11 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
 
             image1_np = image.permute((1, 2, 0)).cpu().detach().numpy()
             image1_np = (image1_np * 255).astype(np.uint8)
+            print(image1_np)
+            print(image1_np.shape)
             image1 = Image.fromarray(image1_np)
             image1.save(f'renders/render_{i}.png')
             image2_np = (gt_image * 255).astype(np.uint8)
-            image2_np = Image.fromarray(image2_np)
             image2 = Image.fromarray(image2_np)
             image2.save(f'gts/gt_{i}.png')
 
