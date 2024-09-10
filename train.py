@@ -144,6 +144,8 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Loss
             gt_image = viewpoint_cam.original_image.cpu().numpy()
             # Save as a PNG image
+            print(gt_image.shape)
+            print(image.shape)
             image1 = Image.fromarray(image.cpu().detach().numpy())
             image1.save(f'renders/render_{i}.png')
             image2 = Image.fromarray(image.cpu().detach().numpy())
