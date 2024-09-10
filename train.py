@@ -143,7 +143,8 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     os.makedirs('gts', exist_ok=True)
     with torch.no_grad():
         for i, viewpoint_cam in enumerate(viewpoint_stack):
-            bg = torch.rand((3), device="cuda") if opt.random_background else background
+            #bg = torch.rand((3), device="cuda") if opt.random_background else background
+            bg = torch.tensor((0, 0, 0), device='cuda')
             render_pkg = render(viewpoint_cam, gaussians, pipe, bg)
             image, viewspace_point_tensor, visibility_filter, radii = render_pkg["render"], render_pkg[
                 "viewspace_points"], render_pkg["visibility_filter"], render_pkg["radii"]
