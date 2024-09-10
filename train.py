@@ -146,9 +146,14 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Save as a PNG image
             print(gt_image.shape)
             print(image.shape)
-            image1 = Image.fromarray(image.permute((1, 2, 0)).cpu().detach().numpy())
+            image1_np = image.permute((1, 2, 0)).cpu().detach().numpy()
+            image1_np = (image1_np * 255).astype(np.uint8)
+            image1 = Image.fromarray(image1_np)
             image1.save(f'renders/render_{i}.png')
-            image2 = Image.fromarray(image.permute((1, 2, 0)).cpu().detach().numpy())
+            image2_np = gt_image.permute((1, 2, 0)).cpu().numpy()
+            image2_np = (image2_np * 255).astype(np.uint8)
+            image2_np = Image.fromarray(image2_np)
+            image2 = Image.fromarray(image2_np)
             image2.save(f'gts/gt_{i}.png')
 
     # save train loss plot
