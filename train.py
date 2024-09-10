@@ -142,6 +142,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     os.makedirs('renders', exist_ok=True)
     os.makedirs('gts', exist_ok=True)
     with torch.no_grad():
+        print(viewpoint_stack)
         for i, viewpoint_cam in enumerate(viewpoint_stack):
             #bg = torch.rand((3), device="cuda") if opt.random_background else background
             bg = torch.tensor((0, 0, 0), device='cuda')
