@@ -137,7 +137,8 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 print("\n[ITER {}] Saving Checkpoint".format(iteration))
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
 
-    # r ender final images
+    # render final images
+    viewpoint_stack = scene.getTestCameras().copy()
     os.makedirs('renders', exist_ok=True)
     os.makedirs('gts', exist_ok=True)
     with torch.no_grad():
