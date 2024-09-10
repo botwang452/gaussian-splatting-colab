@@ -21,6 +21,43 @@ from tqdm import tqdm
 from utils.image_utils import psnr
 from argparse import ArgumentParser
 
+'''
+root_directory/
+│
+├── scene_1/
+│   ├── test/
+│   │   ├── method_1/
+│   │   │   ├── renders/        # Directory for rendered images
+│   │   │   │   ├── image_1.png
+│   │   │   │   ├── image_2.png
+│   │   │   │   └── ...
+│   │   │   ├── gt/             # Directory for ground truth images
+│   │   │   │   ├── image_1.png
+│   │   │   │   ├── image_2.png
+│   │   │   │   └── ...
+│   │   │   └── results.json    # Output after evaluation (optional)
+│   │   │
+│   │   ├── method_2/
+│   │   │   ├── renders/
+│   │   │   ├── gt/
+│   │   │   └── results.json    # Output after evaluation
+│   │   │
+│   │   └── ...
+│
+├── scene_2/
+│   ├── test/
+│   │   ├── method_1/
+│   │   ├── method_2/
+│   │   └── ...
+│
+├── scene_3/
+│   └── test/
+│       ├── method_1/
+│       ├── method_2/
+│       └── ...
+│
+└── ...
+'''
 def readImages(renders_dir, gt_dir):
     renders = []
     gts = []

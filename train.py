@@ -21,6 +21,7 @@ from tqdm import tqdm
 from utils.image_utils import psnr
 from argparse import ArgumentParser, Namespace
 from arguments import ModelParams, PipelineParams, OptimizationParams
+from PIL import Image
 try:
     from torch.utils.tensorboard import SummaryWriter
     TENSORBOARD_FOUND = True
@@ -133,10 +134,25 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 print("\n[ITER {}] Saving Checkpoint".format(iteration))
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
 
+    # render final images
+    with torch.no_grad:
+        for i, viewpoint_cam in enumerate(viewpoint_stack):
+            bg = torch.rand((3), device="cuda") if opt.random_background else background
+            render_pkg = render(viewpoint_cam, gaussians, pipe, bg)
+            image, viewspace_point_tensor, visibility_filter, radii = render_pkg["render"], render_pkg[
+                "viewspace_points"], render_pkg["visibility_filter"], render_pkg["radii"]
+            # Loss
+            gt_image = viewpoint_cam.original_image.cpu().numpy()
+            # Save as a PNG image
+            image1 = Image.fromarray(image.cpu().detach().numpy())
+            image1.save(f'renders/render_{i}.png')
+            image2 = Image.fromarray(image.cpu().detach().numpy())
+            image2.save(f'gts/gt_{i}.png')
+
     # save train loss plot
-    plot_path = os.path.join(self.model_path, "point_cloud/iteration_{}".format(iteration))
+    plot_path = os.path.join(scene.model_path, "point_cloud/iteration_{}".format(iteration))
     plt.figure(figsize=(10, 5))
-    plt.plot(train_losses, marker='o', linestyle='-', color='blue', label='Chamfer Loss')
+    plt.plot(train_losses, marker='o', linestyle='-', color='blue', label='Train Loss')
     plt.title(f'Train losses')
     plt.xlabel('Iteration')
     plt.ylabel('Loss')
@@ -213,8 +229,8 @@ if __name__ == "__main__":
     parser.add_argument('--port', type=int, default=6009)
     parser.add_argument('--debug_from', type=int, default=-1)
     parser.add_argument('--detect_anomaly', action='store_true', default=False)
-    parser.add_argument("--test_iterations", nargs="+", type=int, default=[29_000, 30_000])
-    parser.add_argument("--save_iterations", nargs="+", type=int, default=[100, 10000, 10500, 11000, 11500, 12000, 30_000])
+    parser.add_argument("--test_iterations", nargs="+", type=int, default=[7000, 30_000])
+    parser.add_argument("--save_iterations", nargs="+", type=int, default=[7000, 30_000])
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--checkpoint_iterations", nargs="+", type=int, default=[])
     parser.add_argument("--start_checkpoint", type=str, default = None)
