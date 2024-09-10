@@ -138,14 +138,14 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
 
     # render final images
-    viewpoint_stack = scene.getTrainCameras().copy()
+    viewpoint_stack = scene.getTestCameras().copy()
     os.makedirs('renders', exist_ok=True)
     os.makedirs('gts', exist_ok=True)
     with torch.no_grad():
         print(viewpoint_stack)
         for i, viewpoint_cam in enumerate(viewpoint_stack):
             #bg = torch.rand((3), device="cuda") if opt.random_background else background
-            bg = torch.tensor((0, 0, 0), device='cuda')
+            bg = torch.tensor((0.0, 0.0, 0.0), device='cuda')
             render_pkg = render(viewpoint_cam, gaussians, pipe, bg)
             image, viewspace_point_tensor, visibility_filter, radii = render_pkg["render"], render_pkg[
                 "viewspace_points"], render_pkg["visibility_filter"], render_pkg["radii"]
