@@ -24,6 +24,7 @@ from arguments import ModelParams, PipelineParams, OptimizationParams
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
+import torchvision
 try:
     from torch.utils.tensorboard import SummaryWriter
     TENSORBOARD_FOUND = True
