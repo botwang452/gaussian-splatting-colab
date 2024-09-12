@@ -152,15 +152,10 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             # Loss
             gt_image = viewpoint_cam.original_image.permute((1, 2, 0)).cpu().numpy()
             # Save as a PNG image
-
-            image1_np = image.permute((1, 2, 0)).cpu().detach().numpy()
-            image1_np = (image1_np * 255).astype(np.uint8)
-            image1 = Image.fromarray(image1_np)
-            image1.save(f'renders/render_{i}.png')
             image2_np = (gt_image * 255).astype(np.uint8)
             image2 = Image.fromarray(image2_np)
             image2.save(f'gts/gt_{i}.png')
-            torchvision.utils.save_image(image, fp=f'renders/r_{i}.png')
+            torchvision.utils.save_image(image, fp=f'renders/render_{i}.png')
 
     # save train loss plot
     plot_path = os.path.join(scene.model_path, "point_cloud/iteration_{}".format(iteration))
