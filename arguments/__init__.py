@@ -13,6 +13,9 @@ from argparse import ArgumentParser, Namespace
 import sys
 import os
 
+import torchvision.utils
+
+
 class GroupParams:
     pass
 

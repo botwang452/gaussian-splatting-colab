@@ -159,6 +159,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
             image2_np = (gt_image * 255).astype(np.uint8)
             image2 = Image.fromarray(image2_np)
             image2.save(f'gts/gt_{i}.png')
+            torchvision.utils.save_image(image, fp=f'renders/r_{i}.png')
 
     # save train loss plot
     plot_path = os.path.join(scene.model_path, "point_cloud/iteration_{}".format(iteration))
