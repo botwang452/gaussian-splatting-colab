@@ -42,7 +42,7 @@ class Scene:
         self.test_cameras = {}
         print(args.source_path)
         print(f'{args.source_path}/scenes/{scene}/sparse')
-        scene_path = f'{args.source_path}/scenes/{scene}/sparse'
+        scene_path = f'{args.source_path}/scenes/{scene}'
         if os.path.exists(scene_path):
             print('a')
             #scene_info = sceneLoadTypeCallbacks["Colmap"](args.source_path, args.images, args.eval)
