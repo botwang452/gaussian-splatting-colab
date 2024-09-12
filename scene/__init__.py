@@ -40,8 +40,6 @@ class Scene:
 
         self.train_cameras = {}
         self.test_cameras = {}
-        print(args.source_path)
-        print(f'{args.source_path}/scenes/{scene}/sparse')
         scene_path = f'{args.source_path}/scenes/{scene}'
         if os.path.exists(scene_path):
             print('a')
@@ -85,6 +83,7 @@ class Scene:
             #                                               "iteration_" + str(self.loaded_iter),
             #                                               "point_cloud.ply"))
             load_path = os.path.join(args.source_path, "sparse/0", "initialisation.ply")
+            load_path = f'{args.source_path}/scenes/{scene}/sparse/0/initialisation.ply'
             print(f'loading gaussians: {load_path}')
             self.gaussians.load_ply(load_path)
         else:
