@@ -34,7 +34,7 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     first_iter = 0
     tb_writer = prepare_output_and_logger(dataset)
     gaussians = GaussianModel(dataset.sh_degree)
-    scene = Scene(dataset, gaussians, load_iteration=1) # set to None for sfm init
+    scene = Scene(dataset, gaussians, load_iteration=None) # set to None for sfm init
     gaussians.training_setup(opt)
     if checkpoint:
         (model_params, first_iter) = torch.load(checkpoint)
@@ -142,7 +142,6 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     os.makedirs('renders', exist_ok=True)
     os.makedirs('gts', exist_ok=True)
     with torch.no_grad():
-        print(viewpoint_stack)
         for i, viewpoint_cam in enumerate(viewpoint_stack):
             #bg = torch.rand((3), device="cuda") if opt.random_background else background
             bg = torch.tensor((0.0, 0.0, 0.0),dtype=torch.float32, device='cuda')
