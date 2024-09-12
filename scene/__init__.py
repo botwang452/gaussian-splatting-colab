@@ -42,9 +42,10 @@ class Scene:
         self.test_cameras = {}
         print(args.source_path)
         print(f'{args.source_path}/scenes/{scene}/sparse')
+        scene_path = f'{args.source_path}/scenes/{scene}/sparse'
         if os.path.exists(os.path.join(args.source_path, f"/scenes/{scene}/sparse")):
             #scene_info = sceneLoadTypeCallbacks["Colmap"](args.source_path, args.images, args.eval)
-            scene_info = sceneLoadTypeCallbacks["Colmap"](os.path.join(args.source_path, f"/scenes/{scene}/sparse"), args.images, args.eval)
+            scene_info = sceneLoadTypeCallbacks["Colmap"](scene_path, args.images, args.eval)
         elif os.path.exists(os.path.join(args.source_path, "transforms_train.json")):
             print("Found transforms_train.json file, assuming Blender data set!")
             scene_info = sceneLoadTypeCallbacks["Blender"](args.source_path, args.white_background, args.eval)
