@@ -43,7 +43,8 @@ class Scene:
         print(args.source_path)
         print(f'{args.source_path}/scenes/{scene}/sparse')
         scene_path = f'{args.source_path}/scenes/{scene}/sparse'
-        if os.path.exists(os.path.join(args.source_path, f"/scenes/{scene}/sparse")):
+        if os.path.exists(scene_path):
+            print('a')
             #scene_info = sceneLoadTypeCallbacks["Colmap"](args.source_path, args.images, args.eval)
             scene_info = sceneLoadTypeCallbacks["Colmap"](scene_path, args.images, args.eval)
         elif os.path.exists(os.path.join(args.source_path, "transforms_train.json")):
