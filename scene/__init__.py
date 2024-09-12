@@ -18,6 +18,7 @@ from scene.gaussian_model import GaussianModel
 from arguments import ModelParams
 from utils.camera_utils import cameraList_from_camInfos, camera_to_JSON
 
+scene = 'treehill'
 class Scene:
 
     gaussians : GaussianModel
@@ -39,8 +40,8 @@ class Scene:
 
         self.train_cameras = {}
         self.test_cameras = {}
-        print(f'src_path:{args.source_path}')
-        if os.path.exists(os.path.join(args.source_path, "sparse")):
+
+        if os.path.exists(os.path.join(args.source_path, f"/scenes/{scene}/sparse")):
             scene_info = sceneLoadTypeCallbacks["Colmap"](args.source_path, args.images, args.eval)
         elif os.path.exists(os.path.join(args.source_path, "transforms_train.json")):
             print("Found transforms_train.json file, assuming Blender data set!")
